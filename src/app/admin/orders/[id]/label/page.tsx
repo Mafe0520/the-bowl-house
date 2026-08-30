@@ -32,7 +32,8 @@ export default function LabelPage() {
     delivery_date?: { date?: string }
   }
 
-  const items = (order as unknown as { order_items?: unknown[]; items?: unknown[] }).order_items || (order as unknown as { items?: unknown[] }).items || []
+  type OrderItem = { product_name: string; quantity: number; selections?: { option_name: string }[] }
+  const items: OrderItem[] = ((order as unknown as { order_items?: OrderItem[]; items?: OrderItem[] }).order_items || (order as unknown as { items?: OrderItem[] }).items || [])
   const isZelle = o.payment_method === 'zelle'
 
   return (
