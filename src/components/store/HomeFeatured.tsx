@@ -10,8 +10,8 @@ interface Props {
 
 export function HomeFeatured({ accepting }: Props) {
   const { lang } = useLanguage()
-  const today = new Date().getDay() // 0=Sun, 3=Wed
-  const isDeliveryDay = today === 0 || today === 3
+  const today = new Date().getDay() // 0=Sun, 6=Sat
+  const isDeliveryDay = today === 0 || today === 6
 
   return (
     <div
@@ -62,7 +62,7 @@ export function HomeFeatured({ accepting }: Props) {
           }}
         >
           <span className="font-body font-bold" style={{ fontSize: 12, color: 'var(--rose-dark)' }}>
-            {lang === 'es' ? '🗓 Miérc. & Dom.' : '🗓 Wed. & Sun.'}
+            {lang === 'es' ? '🗓 Sáb. & Dom.' : '🗓 Sat. & Sun.'}
           </span>
         </div>
         {/* Bottom overlay text */}
@@ -107,7 +107,7 @@ export function HomeFeatured({ accepting }: Props) {
                 <span className="font-body font-bold" style={{ fontSize: 12, color: isDeliveryDay ? '#2e7d32' : 'var(--text-secondary)' }}>
                   {isDeliveryDay
                     ? (lang === 'es' ? 'Entregamos hoy' : 'Delivering today')
-                    : (lang === 'es' ? 'Próxima entrega: miércoles o domingo' : 'Next delivery: Wednesday or Sunday')}
+                    : (lang === 'es' ? 'Próxima entrega: sábado o domingo' : 'Next delivery: Saturday or Sunday')}
                 </span>
               </div>
             </div>
@@ -135,7 +135,7 @@ export function HomeFeatured({ accepting }: Props) {
                 {lang === 'es' ? '⏳ Pedidos cerrados por ahora' : '⏳ Orders closed for now'}
               </p>
               <p className="font-body" style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 3 }}>
-                {lang === 'es' ? 'Volvemos el miércoles o domingo.' : 'We\'re back Wednesday or Sunday.'}
+                {lang === 'es' ? 'Volvemos el sábado o domingo.' : 'We\'re back Saturday or Sunday.'}
               </p>
             </div>
             <Link href="/menu">

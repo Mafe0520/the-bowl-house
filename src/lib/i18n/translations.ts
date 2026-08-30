@@ -12,7 +12,7 @@ const t = {
     seeFullMenu: 'See Full Menu',
     ordersClosed: 'Orders are currently closed',
     ordersClosedSub: 'Check back soon for our next drop 🍓',
-    madeWithLove: 'Fresh every Sunday & Wednesday. Made with love.',
+    madeWithLove: 'Fresh every Saturday & Sunday. Made with love.',
     // Menu
     menuTitle: 'Our Menu 🍨',
     menuSubtitle: 'Handcrafted dessert bowls. Pick your favorite and customize your toppings.',
@@ -113,7 +113,7 @@ const t = {
     seeFullMenu: 'Ver menú completo',
     ordersClosed: 'Los pedidos están cerrados por ahora',
     ordersClosedSub: 'Vuelve pronto para nuestro próximo drop 🍓',
-    madeWithLove: 'Frescos cada domingo y miércoles. Hechos con amor.',
+    madeWithLove: 'Frescos cada sábado y domingo. Hechos con amor.',
     // Menu
     menuTitle: 'Nuestro Menú 🍨',
     menuSubtitle: 'Bowls de postres artesanales. Elige tu favorito y personaliza tus toppings.',
