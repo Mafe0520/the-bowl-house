@@ -25,7 +25,7 @@ function nextWeekday(dayOfWeek: number): string {
   return d.toISOString().split('T')[0]
 }
 
-const WED_DATE = nextWeekday(3) // next Wednesday
+const SAT_DATE = nextWeekday(6) // next Saturday
 const SUN_DATE = nextWeekday(0) // next Sunday
 
 // ---------------------------------------------------------------------------
@@ -268,7 +268,7 @@ export function validateZone(city: string, zip: string): MockZone | null {
 
 export let dates: DeliveryDate[] = [
   {
-    id: 'date-wed', date: WED_DATE, day_of_week: 'wednesday',
+    id: 'date-sat', date: SAT_DATE, day_of_week: 'saturday',
     is_active: true, accepting_orders: true, cutoff_datetime: null,
   },
   {
@@ -278,10 +278,10 @@ export let dates: DeliveryDate[] = [
 ]
 
 export let slots: DeliverySlot[] = [
-  // Wednesday slots
-  { id: 'slot-wed-1', delivery_date_id: 'date-wed', start_time: '12:00', end_time: '14:00', is_active: true, is_manually_closed: false, display_order: 1 },
-  { id: 'slot-wed-2', delivery_date_id: 'date-wed', start_time: '14:00', end_time: '16:00', is_active: true, is_manually_closed: false, display_order: 2 },
-  { id: 'slot-wed-3', delivery_date_id: 'date-wed', start_time: '16:00', end_time: '18:00', is_active: true, is_manually_closed: false, display_order: 3 },
+  // Saturday slots
+  { id: 'slot-sat-1', delivery_date_id: 'date-sat', start_time: '12:00', end_time: '14:00', is_active: true, is_manually_closed: false, display_order: 1 },
+  { id: 'slot-sat-2', delivery_date_id: 'date-sat', start_time: '14:00', end_time: '16:00', is_active: true, is_manually_closed: false, display_order: 2 },
+  { id: 'slot-sat-3', delivery_date_id: 'date-sat', start_time: '16:00', end_time: '18:00', is_active: true, is_manually_closed: false, display_order: 3 },
   // Sunday slots
   { id: 'slot-sun-1', delivery_date_id: 'date-sun', start_time: '12:00', end_time: '14:00', is_active: true, is_manually_closed: false, display_order: 1 },
   { id: 'slot-sun-2', delivery_date_id: 'date-sun', start_time: '14:00', end_time: '16:00', is_active: true, is_manually_closed: false, display_order: 2 },
