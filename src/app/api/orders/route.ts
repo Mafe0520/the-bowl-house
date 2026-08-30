@@ -120,6 +120,17 @@ export async function POST(req: NextRequest) {
     orderNumber, dateLabel, slotLabel, total.toFixed(2),
     payment_method, fulfillment_type, preferred_language as Lang
   )
+  // Push notification to admin
+  fetch(`${req.nextUrl.origin}/api/push/send`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title: `🍨 Nuevo pedido #${orderNumber}`,
+      body: `${customer.first_name} ${customer.last_name} · $${total.toFixed(2)} · ${payment_method === 'zelle' ? 'Zelle' : 'Efectivo'}`,
+      url: '/admin/orders',
+    }),
+  }).catch(() => {})
+
   // SMS — fire and forget, no bloquea la respuesta
   sendSMS({ to: customer.phone, body: smsBody }).catch(() => {})
   const ownerPhone = process.env.TWILIO_OWNER_PHONE

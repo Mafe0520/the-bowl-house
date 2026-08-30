@@ -2,13 +2,96 @@
 
 // TODO: Enable Supabase auth before production
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, ShoppingBag, Package, Layers,
-  Truck, Calendar, ClipboardList, Settings, Menu, X, Telescope
+  Truck, Calendar, ClipboardList, Settings, Menu, X, Telescope, Bell, BellOff
 } from 'lucide-react'
+
+function usePushNotifications() {
+  const [state, setState] = useState<'unsupported' | 'denied' | 'subscribed' | 'unsubscribed'>('unsubscribed')
+
+  useEffect(() => {
+    if (!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)) {
+      setState('unsupported')
+      return
+    }
+    if (Notification.permission === 'denied') {
+      setState('denied')
+      return
+    }
+    navigator.serviceWorker.ready.then(reg => {
+      reg.pushManager.getSubscription().then(sub => {
+        setState(sub ? 'subscribed' : 'unsubscribed')
+      })
+    })
+  }, [])
+
+  const subscribe = async () => {
+    const reg = await navigator.serviceWorker.ready
+    const permission = await Notification.requestPermission()
+    if (permission !== 'granted') { setState('denied'); return }
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+    })
+    await fetch('/api/push/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subscription: sub }),
+    })
+    setState('subscribed')
+  }
+
+  const unsubscribe = async () => {
+    const reg = await navigator.serviceWorker.ready
+    const sub = await reg.pushManager.getSubscription()
+    if (sub) {
+      await fetch('/api/push/subscribe', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ endpoint: sub.endpoint }),
+      })
+      await sub.unsubscribe()
+    }
+    setState('unsubscribed')
+  }
+
+  return { state, subscribe, unsubscribe }
+}
+
+function NotifButton({ compact = false }: { compact?: boolean }) {
+  const { state, subscribe, unsubscribe } = usePushNotifications()
+  if (state === 'unsupported') return null
+
+  const label = state === 'subscribed' ? 'Notificaciones ON' : state === 'denied' ? 'Bloqueado' : 'Activar notifs'
+  const Icon = state === 'subscribed' ? Bell : BellOff
+  const color = state === 'subscribed' ? 'var(--rose)' : 'var(--text-secondary)'
+
+  if (compact) {
+    return (
+      <button
+        onClick={state === 'subscribed' ? unsubscribe : subscribe}
+        disabled={state === 'denied'}
+        title={label}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 10, border: '1.5px solid var(--border)', background: 'var(--card)', color, cursor: state === 'denied' ? 'not-allowed' : 'pointer' }}>
+        <Icon size={16} />
+      </button>
+    )
+  }
+
+  return (
+    <button
+      onClick={state === 'subscribed' ? unsubscribe : subscribe}
+      disabled={state === 'denied'}
+      style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', padding: '10px 12px', borderRadius: 16, border: 'none', background: 'transparent', color, fontWeight: 600, fontSize: 13, cursor: state === 'denied' ? 'not-allowed' : 'pointer', textAlign: 'left' }}>
+      <Icon size={18} />
+      {label}
+    </button>
+  )
+}
 
 const nav = [
   { href: '/admin', label: 'Panel', icon: LayoutDashboard, exact: true },
@@ -58,14 +141,20 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             )
           })}
         </nav>
+        <div className="px-3 pb-5 border-t pt-3" style={{ borderColor: 'var(--border)' }}>
+          <NotifButton />
+        </div>
       </aside>
 
       {/* Mobile nav */}
       <div className="lg:hidden" style={{ position: 'fixed', top: 28, left: 0, right: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--card)', borderBottom: '1.5px solid var(--border)' }}>
         <span className="font-display font-bold" style={{ color: 'var(--rose)' }}>The Bowl House</span>
-        <button onClick={() => setMobileOpen(!mobileOpen)} style={{ color: 'var(--text-primary)' }}>
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <NotifButton compact />
+          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ color: 'var(--text-primary)' }}>
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (
