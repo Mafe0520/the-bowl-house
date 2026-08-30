@@ -3,6 +3,7 @@
 export const dynamic = 'force-dynamic'
 
 import { useState, useEffect, useCallback } from 'react'
+import Link from 'next/link'
 import { Card } from '@/components/ui/Card'
 import { DeliveryDate, DeliverySlot } from '@/types'
 import { formatTime } from '@/lib/delivery-capacity'
@@ -176,12 +177,24 @@ export default function AdminDashboard() {
 
           {/* Stat grid */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 24 }}>
-            <StatCard icon={<ShoppingBag size={16} />} label="Pedidos" value={stats.total_orders} color="var(--rose)" />
-            <StatCard icon={<Layers size={16} />} label="Bowls" value={stats.total_bowls} color="var(--chocolate)" />
-            <StatCard icon={<DollarSign size={16} />} label="Ingresos" value={`$${stats.revenue.toFixed(2)}`} color="var(--rose)" accent />
-            <StatCard icon={<AlertCircle size={16} />} label="Por cobrar" value={`$${stats.still_to_collect.toFixed(2)}`} color={stats.still_to_collect > 0 ? 'var(--rose)' : 'var(--chocolate)'} warn={stats.still_to_collect > 0} />
-            <StatCard icon={<Truck size={16} />} label="Entregados" value={`${stats.delivered}/${stats.total_orders}`} color="var(--chocolate)" />
-            <StatCard icon={<Clock size={16} />} label="Restantes" value={stats.remaining} color="var(--chocolate)" />
+            <Link href="/admin/orders" style={{ display: 'block', textDecoration: 'none' }}>
+              <StatCard icon={<ShoppingBag size={16} />} label="Pedidos" value={stats.total_orders} color="var(--rose)" />
+            </Link>
+            <Link href="/admin/prep" style={{ display: 'block', textDecoration: 'none' }}>
+              <StatCard icon={<Layers size={16} />} label="Bowls" value={stats.total_bowls} color="var(--chocolate)" />
+            </Link>
+            <Link href="/admin/orders" style={{ display: 'block', textDecoration: 'none' }}>
+              <StatCard icon={<DollarSign size={16} />} label="Ingresos" value={`$${stats.revenue.toFixed(2)}`} color="var(--rose)" accent />
+            </Link>
+            <Link href="/admin/orders?filter=payment_due" style={{ display: 'block', textDecoration: 'none' }}>
+              <StatCard icon={<AlertCircle size={16} />} label="Por cobrar" value={`$${stats.still_to_collect.toFixed(2)}`} color={stats.still_to_collect > 0 ? 'var(--rose)' : 'var(--chocolate)'} warn={stats.still_to_collect > 0} />
+            </Link>
+            <Link href="/admin/orders" style={{ display: 'block', textDecoration: 'none' }}>
+              <StatCard icon={<Truck size={16} />} label="Entregados" value={`${stats.delivered}/${stats.total_orders}`} color="var(--chocolate)" />
+            </Link>
+            <Link href="/admin/orders" style={{ display: 'block', textDecoration: 'none' }}>
+              <StatCard icon={<Clock size={16} />} label="Restantes" value={stats.remaining} color="var(--chocolate)" />
+            </Link>
           </div>
 
           {/* Slot capacity */}
