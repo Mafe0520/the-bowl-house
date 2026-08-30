@@ -558,6 +558,13 @@ export function createOrder(data: MockOrder): MockOrder {
   return data
 }
 
+export function deleteOrder(id: string): boolean {
+  const idx = orders.findIndex(o => o.id === id)
+  if (idx === -1) return false
+  orders.splice(idx, 1)
+  return true
+}
+
 export function nextOrderNumber(): string {
   const nums = orders.map(o => parseInt(o.order_number)).filter(n => !isNaN(n))
   const max = nums.length ? Math.max(...nums) : 1000

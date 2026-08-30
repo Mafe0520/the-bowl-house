@@ -79,6 +79,14 @@ export default function AdminOrdersPage() {
 
   const shown = filteredOrders()
 
+  async function handleDelete(e: React.MouseEvent, orderId: string, orderNumber: string) {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!confirm(`¿Borrar el pedido #${orderNumber}? Esta acción no se puede deshacer.`)) return
+    await fetch(`/api/orders/${orderId}`, { method: 'DELETE' })
+    setOrders(prev => prev.filter(o => o.id !== orderId))
+  }
+
   return (
     <div>
       <h1 className="font-display font-bold" style={{ fontSize: 28, color: 'var(--chocolate)', marginBottom: 16 }}>Pedidos</h1>
@@ -205,17 +213,29 @@ export default function AdminOrdersPage() {
                     </span>
                   </div>
 
-                  {/* Footer: created time + button */}
+                  {/* Footer: created time + buttons */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
                     <p style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
                       Creado: {new Date(order.created_at).toLocaleTimeString('es-US', { hour: '2-digit', minute: '2-digit' })}
                     </p>
-                    <span className="font-body font-bold" style={{
-                      fontSize: 12, padding: '5px 14px', borderRadius: 20,
-                      border: '1.5px solid var(--rose)', color: 'var(--rose)',
-                    }}>
-                      Ver detalles
-                    </span>
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                      <button
+                        onClick={e => handleDelete(e, order.id, order.order_number)}
+                        className="font-body font-bold"
+                        style={{
+                          fontSize: 12, padding: '5px 12px', borderRadius: 20,
+                          border: '1.5px solid #f87171', color: '#ef4444', background: 'transparent',
+                          cursor: 'pointer',
+                        }}>
+                        Borrar
+                      </button>
+                      <span className="font-body font-bold" style={{
+                        fontSize: 12, padding: '5px 14px', borderRadius: 20,
+                        border: '1.5px solid var(--rose)', color: 'var(--rose)',
+                      }}>
+                        Ver detalles
+                      </span>
+                    </div>
                   </div>
                 </Card>
               </Link>
