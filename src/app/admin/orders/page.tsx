@@ -89,59 +89,65 @@ export default function AdminOrdersPage() {
 
   return (
     <div>
-      <h1 className="font-display font-bold" style={{ fontSize: 28, color: 'var(--chocolate)', marginBottom: 16 }}>Pedidos</h1>
+      {/* Sticky filter header */}
+      <div style={{
+        position: 'sticky', top: -20, zIndex: 10,
+        background: 'var(--bg)', marginBottom: 12,
+        paddingTop: 4, paddingBottom: 8,
+        marginLeft: -16, marginRight: -16, paddingLeft: 16, paddingRight: 16,
+      }}>
+        {/* Date selector */}
+        <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', paddingBottom: 2 }}>
+          {dates.map(date => {
+            const label = new Date(date.date + 'T12:00:00').toLocaleDateString('es-US', { weekday: 'short', day: 'numeric', month: 'short' })
+            const active = selectedDate === date.id
+            return (
+              <button key={date.id} onClick={() => setSelectedDate(date.id)}
+                className="font-body font-semibold"
+                style={{
+                  flexShrink: 0, padding: '7px 16px', borderRadius: 20, fontSize: 13,
+                  background: active ? 'var(--rose)' : 'var(--card)',
+                  color: active ? 'white' : 'var(--text-secondary)',
+                  border: `1.5px solid ${active ? 'var(--rose)' : 'var(--border)'}`,
+                }}
+              >{label}</button>
+            )
+          })}
+        </div>
 
-      {/* Date selector */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 16, overflowX: 'auto', paddingBottom: 4 }}>
-        {dates.map(date => {
-          const label = new Date(date.date + 'T12:00:00').toLocaleDateString('es-US', { weekday: 'short', day: 'numeric', month: 'short' })
-          const active = selectedDate === date.id
-          return (
-            <button key={date.id} onClick={() => setSelectedDate(date.id)}
-              className="font-body font-semibold"
-              style={{
-                flexShrink: 0, padding: '7px 16px', borderRadius: 20, fontSize: 13,
-                background: active ? 'var(--rose)' : 'var(--card)',
-                color: active ? 'white' : 'var(--text-secondary)',
-                border: `1.5px solid ${active ? 'var(--rose)' : 'var(--border)'}`,
-              }}
-            >{label}</button>
-          )
-        })}
-      </div>
+        {/* Payment filter chips */}
+        <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', paddingBottom: 2 }}>
+          {FILTERS.map(([key, label]) => {
+            const active = paymentFilter === key
+            return (
+              <button key={key} onClick={() => setPaymentFilter(key)}
+                className="font-body font-semibold"
+                style={{
+                  flexShrink: 0, padding: '6px 14px', borderRadius: 20, fontSize: 13,
+                  background: active ? 'var(--chocolate)' : 'var(--card)',
+                  color: active ? 'white' : 'var(--text-secondary)',
+                  border: `1.5px solid ${active ? 'var(--chocolate)' : 'var(--border)'}`,
+                }}
+              >{label}</button>
+            )
+          })}
+        </div>
 
-      {/* Payment filter chips */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 16, overflowX: 'auto', paddingBottom: 4 }}>
-        {FILTERS.map(([key, label]) => {
-          const active = paymentFilter === key
-          return (
-            <button key={key} onClick={() => setPaymentFilter(key)}
-              className="font-body font-semibold"
-              style={{
-                flexShrink: 0, padding: '6px 14px', borderRadius: 20, fontSize: 13,
-                background: active ? 'var(--chocolate)' : 'var(--card)',
-                color: active ? 'white' : 'var(--text-secondary)',
-                border: `1.5px solid ${active ? 'var(--chocolate)' : 'var(--border)'}`,
-              }}
-            >{label}</button>
-          )
-        })}
-      </div>
-
-      {/* Search */}
-      <div style={{ position: 'relative', marginBottom: 20 }}>
-        <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', fontSize: 15, opacity: 0.4 }}>🔍</span>
-        <input
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          placeholder="Buscar pedido, cliente o teléfono..."
-          className="font-body"
-          style={{
-            width: '100%', padding: '10px 16px 10px 40px', borderRadius: 20, fontSize: 14,
-            background: 'var(--card)', border: '1.5px solid var(--border)',
-            color: 'var(--text-primary)', outline: 'none', boxSizing: 'border-box',
-          }}
-        />
+        {/* Search */}
+        <div style={{ position: 'relative' }}>
+          <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', fontSize: 15, opacity: 0.4 }}>🔍</span>
+          <input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Buscar pedido, cliente o teléfono..."
+            className="font-body"
+            style={{
+              width: '100%', padding: '10px 16px 10px 40px', borderRadius: 20, fontSize: 14,
+              background: 'var(--card)', border: '1.5px solid var(--border)',
+              color: 'var(--text-primary)', outline: 'none', boxSizing: 'border-box',
+            }}
+          />
+        </div>
       </div>
 
       {/* Orders */}
