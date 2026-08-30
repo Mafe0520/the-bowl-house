@@ -32,7 +32,7 @@ export default function LabelPage() {
     delivery_date?: { date?: string }
   }
 
-  const items = order.order_items || (order as { items?: Order['order_items'] }).items || []
+  const items = (order as unknown as { order_items?: unknown[]; items?: unknown[] }).order_items || (order as unknown as { items?: unknown[] }).items || []
   const isZelle = o.payment_method === 'zelle'
 
   return (

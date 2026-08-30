@@ -37,7 +37,8 @@ export async function searchInstagramHashtags(hashtags: string[], limit = 20): P
       snippet: String(item.caption || '').slice(0, 300),
       url: String(item.url || `https://instagram.com/p/${item.id}`),
       domain: 'instagram.com',
-      date: item.timestamp ? String(item.timestamp) : null,
+      date: item.timestamp ? String(item.timestamp) : '',
+      position: 0,
     }))
 }
 
@@ -60,6 +61,7 @@ export async function searchFacebookGroups(queries: string[], limit = 20): Promi
       snippet: (item.text || '').slice(0, 300),
       url: item.postUrl || '',
       domain: 'facebook.com',
-      date: item.time || null,
+      date: item.time || '',
+      position: 0,
     }))
 }
