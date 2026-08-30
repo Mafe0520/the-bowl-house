@@ -4,10 +4,10 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, ShoppingBag, Package, Layers,
-  Truck, Calendar, ClipboardList, Settings, Menu, X, Telescope, Bell, BellOff
+  Truck, Calendar, ClipboardList, Settings, Menu, X, Telescope, Bell, BellOff, ChevronLeft
 } from 'lucide-react'
 
 function usePushNotifications() {
@@ -107,7 +107,9 @@ const nav = [
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const isHome = pathname === '/admin'
 
   return (
     <div className="flex min-h-dvh" style={{ background: 'var(--bg)' }}>
@@ -148,7 +150,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
       {/* Mobile nav */}
       <div className="lg:hidden" style={{ position: 'fixed', top: 28, left: 0, right: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--card)', borderBottom: '1.5px solid var(--border)' }}>
-        <span className="font-display font-bold" style={{ color: 'var(--rose)' }}>The Bowl House</span>
+        {!isHome ? (
+          <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: 2, color: 'var(--rose)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 15 }}>
+            <ChevronLeft size={20} /> Atrás
+          </button>
+        ) : (
+          <span className="font-display font-bold" style={{ color: 'var(--rose)' }}>The Bowl House</span>
+        )}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <NotifButton compact />
           <button onClick={() => setMobileOpen(!mobileOpen)} style={{ color: 'var(--text-primary)' }}>
