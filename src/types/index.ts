@@ -82,7 +82,7 @@ export interface DeliveryZoneZipCode {
 export interface DeliveryDate {
   id: string
   date: string
-  day_of_week: 'wednesday' | 'sunday'
+  day_of_week: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday'
   is_active: boolean
   accepting_orders: boolean
   cutoff_datetime: string | null
