@@ -25,9 +25,9 @@ export function StoreNav() {
     >
       {/* Logo + wordmark */}
       <Link href="/" className="flex items-center gap-2">
-        <Image src="/logo.png" alt="The Bowl House" width={30} height={30} style={{ objectFit: 'contain' }} priority />
+        <Image src="/logo.png" alt="Mi Tienda" width={30} height={30} style={{ objectFit: 'contain' }} priority />
         <span className="font-display font-bold" style={{ fontSize: 16, color: 'var(--chocolate)', lineHeight: 1 }}>
-          The Bowl House
+          Mi Tienda
         </span>
       </Link>
 

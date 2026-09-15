@@ -47,12 +47,12 @@ export function orderConfirmationSMS(
     const payLine = paymentMethod === 'zelle'
       ? `Pago: Zelle al momento de la ${fulfillmentType === 'delivery' ? 'entrega' : 'recogida'}.`
       : `Pago: Efectivo al momento de la ${fulfillmentType === 'delivery' ? 'entrega' : 'recogida'}.`
-    return `The Bowl House 🍨\n¡Recibimos tu pedido #${num}! 💗\nTu ${fulfillmentType === 'delivery' ? 'entrega está programada' : 'recogida está programada'} para ${dayLabel} entre ${slotLabel}.\nTotal: $${total}\n${payLine}\n¡Gracias!`
+    return `Mi Tienda 🍨\n¡Recibimos tu pedido #${num}! 💗\nTu ${fulfillmentType === 'delivery' ? 'entrega está programada' : 'recogida está programada'} para ${dayLabel} entre ${slotLabel}.\nTotal: $${total}\n${payLine}\n¡Gracias!`
   }
   const payLine = paymentMethod === 'zelle'
     ? `Payment: Zelle at ${fulfillmentType}.`
     : `Payment: Cash at ${fulfillmentType}.`
-  return `The Bowl House 🍨\nWe got your order #${num}! 💗\nYour ${fulfillmentType} is scheduled for ${dayLabel} between ${slotLabel}.\nTotal: $${total}\n${payLine}\nThank you!`
+  return `Mi Tienda 🍨\nWe got your order #${num}! 💗\nYour ${fulfillmentType} is scheduled for ${dayLabel} between ${slotLabel}.\nTotal: $${total}\n${payLine}\nThank you!`
 }
 
 export function zellePaymentRequestSMS(
@@ -66,15 +66,15 @@ export function zellePaymentRequestSMS(
   const urlLine = zelleUrl ? `\n${lang === 'es' ? 'Envía aquí' : 'Send here'}: ${zelleUrl}` : ''
   const num = orderNumber
   if (lang === 'es') {
-    return `The Bowl House 🍨\nTu pedido #${num} ha sido entregado. 💗\nTotal pendiente: $${total}\nPor favor envía tu pago por Zelle a:\n${zelleName} — ${zelleContact}${urlLine}\nIncluye ${num} en la nota del pago.\n¡Gracias! 🍨`
+    return `Mi Tienda 🍨\nTu pedido #${num} ha sido entregado. 💗\nTotal pendiente: $${total}\nPor favor envía tu pago por Zelle a:\n${zelleName} — ${zelleContact}${urlLine}\nIncluye ${num} en la nota del pago.\n¡Gracias! 🍨`
   }
-  return `The Bowl House 🍨\nYour order #${num} has been delivered. 💗\nAmount due: $${total}\nPlease send your Zelle payment to:\n${zelleName} — ${zelleContact}${urlLine}\nPlease include ${num} in the Zelle memo.\nThank you! 🍨`
+  return `Mi Tienda 🍨\nYour order #${num} has been delivered. 💗\nAmount due: $${total}\nPlease send your Zelle payment to:\n${zelleName} — ${zelleContact}${urlLine}\nPlease include ${num} in the Zelle memo.\nThank you! 🍨`
 }
 
 export function paymentReceivedSMS(orderNumber: string, lang: Lang = 'en'): string {
   const num = orderNumber
   if (lang === 'es') {
-    return `¡Pago recibido! 💗 Gracias por tu pago del pedido #${num} de The Bowl House. ¡Esperamos que lo hayas disfrutado! 🍨`
+    return `¡Pago recibido! 💗 Gracias por tu pago del pedido #${num} de Mi Tienda. ¡Esperamos que lo hayas disfrutado! 🍨`
   }
-  return `Payment received! 💗 Thank you for your payment for The Bowl House order #${num}. We hope you loved it! 🍨`
+  return `Payment received! 💗 Thank you for your payment for Mi Tienda order #${num}. We hope you loved it! 🍨`
 }

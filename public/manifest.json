@@ -1,7 +1,7 @@
 {
-  "name": "The Bowl House Admin",
-  "short_name": "Bowl House",
-  "description": "Panel de administración de The Bowl House",
+  "name": "Mi Tienda Admin",
+  "short_name": "Mi Tienda",
+  "description": "Panel de administración de The Mi Tienda",
   "start_url": "/admin",
   "display": "standalone",
   "background_color": "#F7F0E8",

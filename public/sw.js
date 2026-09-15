@@ -10,7 +10,7 @@ self.addEventListener('push', function(event) {
     requireInteraction: true,
   }
   event.waitUntil(
-    self.registration.showNotification(data.title || 'The Bowl House', options)
+    self.registration.showNotification(data.title || 'Mi Tienda', options)
   )
 })
 

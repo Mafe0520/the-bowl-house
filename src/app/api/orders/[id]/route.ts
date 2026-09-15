@@ -22,7 +22,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     if (order!.payment_method !== 'zelle') return null
     const body = zellePaymentRequestSMS(
       order!.order_number, order!.total.toFixed(2),
-      settings.zelle_recipient_name || 'The Bowl House',
+      settings.zelle_recipient_name || '',
       settings.zelle_phone_email || '',
       settings.zelle_payment_url || undefined,
       lang

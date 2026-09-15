@@ -304,7 +304,7 @@ export let settings: Record<string, string> = {
   same_zone_capacity: '7',
   two_zone_capacity: '5',
   three_plus_zone_capacity: '4',
-  zelle_recipient_name: 'The Bowl House',
+  zelle_recipient_name: '',
   zelle_phone_email: 'mariafcuevas05@gmail.com',
   zelle_payment_url: '',
   slot_reservation_minutes: '15',

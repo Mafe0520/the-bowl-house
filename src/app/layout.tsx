@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'The Bowl House',
+  title: 'Mi Tienda',
   description: 'Dessert bowls made for cravings.',
   themeColor: '#F7F0E8',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Bowl House',
+    title: 'Mi Tienda',
   },
 }
 
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="apple-touch-icon" href="/logo.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Bowl House" />
+        <meta name="apple-mobile-web-app-title" content="Mi Tienda" />
       </head>
       <body>
         {children}

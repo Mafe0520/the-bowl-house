@@ -100,7 +100,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <aside className="hidden lg:flex flex-col w-60 flex-shrink-0 h-full"
         style={{ background: 'var(--card)', borderRight: '1.5px solid var(--border)' }}>
         <div style={{ padding: '28px 20px 20px', borderBottom: '1.5px solid var(--border)' }}>
-          <span className="font-display font-bold" style={{ fontSize: 20, color: 'var(--rose)' }}>The Bowl House</span>
+          <span className="font-display font-bold" style={{ fontSize: 20, color: 'var(--rose)' }}>Mi Tienda</span>
           <p style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', marginTop: 2 }}>Admin</p>
         </div>
         <nav style={{ flex: 1, overflowY: 'auto', padding: '16px 12px' }}>
@@ -152,7 +152,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               <ChevronLeft size={20} /> Atrás
             </button>
           ) : (
-            <span className="font-display font-bold" style={{ fontSize: 17, color: 'var(--chocolate)' }}>The Bowl House</span>
+            <span className="font-display font-bold" style={{ fontSize: 17, color: 'var(--chocolate)' }}>Mi Tienda</span>
           )}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             {!isHome && (
